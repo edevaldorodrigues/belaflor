@@ -69,26 +69,23 @@
       border-top: 1px solid var(--card-border);
       width: 100%;
       max-width: 900px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
     }
     footer a { color: var(--text-muted); text-decoration: underline; }
-    .counter-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .counter-container img {
-      height: 20px;
+    .counter-box {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: #f5e8e8;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Secção Superior de Informações -->
+    <!-- Secção Superior -->
     <div class="grid">
       <div class="card">
         <div class="card-icon">📅</div>
@@ -115,7 +112,7 @@
       </div>
     </div>
 
-    <!-- Secção Inferior de Contacto e Visita -->
+    <!-- Secção Inferior -->
     <h2 class="section-title">Venha nos visitar</h2>
     <p class="section-subtitle">Atendimento e pedidos pelo WhatsApp.</p>
 
@@ -143,12 +140,26 @@
   <footer>
     <p>© Floricultura Bella Flor · <a href="https://www.instagram.com/floricultura_bellaflor_ab/" target="_blank" rel="noopener">@floricultura_bellaflor_ab</a></p>
     
-    <!-- CONTADOR DE VISITAS ATIVO -->
-    <div class="counter-container">
-      <a href="https://hits.seeyoufarm.com">
-        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ffloricultura-bella-flor&count_bg=%239B2247&title_bg=%23736267&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Contador de Visitas"/>
-      </a>
+    <!-- CONTADOR DE VISITAS EM TEXTO PURO -->
+    <div class="counter-box">
+      👁️ Visitas: <span id="count-number">1</span>
     </div>
   </footer>
+
+  <script>
+    // Contador usando a API pública e simples CountAPI
+    fetch('https://api.countapi.xyz/hit/edevaldorodrigues-belaflor/visits')
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('count-number').innerText = res.value;
+      })
+      .catch(() => {
+        // Fallback local caso esteja sem internet ou a API falhe no teste local
+        let visits = localStorage.getItem('site_visits') || 0;
+        visits++;
+        localStorage.setItem('site_visits', visits);
+        document.getElementById('count-number').innerText = visits;
+      });
+  </script>
 </body>
 </html>
