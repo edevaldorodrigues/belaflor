@@ -69,14 +69,20 @@
       border-top: 1px solid var(--card-border);
       width: 100%;
       max-width: 900px;
-    }
-    footer a { color: var(--text-muted); text-decoration: underline; }
-    .counter-container {
-      margin-top: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
+    }
+    footer a { color: var(--text-muted); text-decoration: underline; }
+    .counter-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .counter-container img {
+      height: 20px;
     }
   </style>
 </head>
@@ -137,27 +143,12 @@
   <footer>
     <p>© Floricultura Bella Flor · <a href="https://www.instagram.com/floricultura_bellaflor_ab/" target="_blank" rel="noopener">@floricultura_bellaflor_ab</a></p>
     
-    <!-- ÁREA DO CONTADOR DE VISITAS -->
+    <!-- CONTADOR DE VISITAS ATIVO -->
     <div class="counter-container">
-      <!-- Badge Gráfico Instantâneo -->
-      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fedevaldorodrigues.github.io%2Fbelaflor&count_bg=%239B2247&title_bg=%23736267&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Contador de Visitas"/>
-      
-      <!-- Texto do GoatCounter (caso utilize essa conta) -->
-      <span id="visit-count" style="font-size: 0.8rem; opacity: 0.8;"></span>
+      <a href="https://hits.seeyoufarm.com">
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ffloricultura-bella-flor&count_bg=%239B2247&title_bg=%23736267&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Contador de Visitas"/>
+      </a>
     </div>
   </footer>
-
-  <!-- Script GoatCounter (Opcional) -->
-  <script data-goatcounter="https://belaflor.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  <script>
-    fetch('https://belaflor.goatcounter.com/counter/TOTAL.json')
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if(d && d.count) {
-          document.getElementById('visit-count').textContent = 'Total acumulado: ' + d.count;
-        }
-      })
-      .catch(function() {});
-  </script>
 </body>
 </html>
