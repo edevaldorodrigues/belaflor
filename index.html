@@ -72,8 +72,8 @@
     }
     footer a { color: var(--text-muted); text-decoration: underline; }
     
-    /* Estilo do Contador */
-    .counter-box {
+    /* CAIXA DO CONTADOR EM TEXTO */
+    .counter-badge {
       margin-top: 12px;
       display: inline-block;
       background: #f5e8e8;
@@ -87,7 +87,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Secção Superior -->
+    <!-- Bloco de Informações Superiores -->
     <div class="grid">
       <div class="card">
         <div class="card-icon">📅</div>
@@ -114,7 +114,7 @@
       </div>
     </div>
 
-    <!-- Secção Inferior -->
+    <!-- Bloco de Contacto -->
     <h2 class="section-title">Venha nos visitar</h2>
     <p class="section-subtitle">Atendimento e pedidos pelo WhatsApp.</p>
 
@@ -142,24 +142,29 @@
   <footer>
     <p>© Floricultura Bella Flor · <a href="https://www.instagram.com/floricultura_bellaflor_ab/" target="_blank" rel="noopener">@floricultura_bellaflor_ab</a></p>
     
-    <!-- ÁREA DO CONTADOR DE VISITAS -->
-    <div class="counter-box">
-      👁️ Visitas ao site: <span id="visit-count">1</span>
+    <!-- CONTADOR EM TEXTO SEM IMAGENS EXTERNAS -->
+    <div class="counter-badge">
+      👁️ Visitas: <span id="visit-count">...</span>
     </div>
   </footer>
 
   <script>
-    // Contador simples e infalível via JavaScript
-    (function() {
-      var count = localStorage.getItem('site_visit_counter');
-      if (count === null) {
-        count = 1;
-      } else {
-        count = parseInt(count, 10) + 1;
-      }
-      localStorage.setItem('site_visit_counter', count);
-      document.getElementById('visit-count').textContent = count;
-    })();
+    // Atualiza a contagem via API pública e gratuita
+    fetch('https://api.counterapi.dev/v1/edevaldorodrigues_belaflor/visits/up')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.count) {
+          document.getElementById('visit-count').textContent = data.count;
+        } else {
+          document.getElementById('visit-count').textContent = '1';
+        }
+      })
+      .catch(function() {
+        // Fallback local se a rede falhar
+        var visits = parseInt(localStorage.getItem('page_visits') || '0') + 1;
+        localStorage.setItem('page_visits', visits);
+        document.getElementById('visit-count').textContent = visits;
+      });
   </script>
 </body>
 </html>
