@@ -71,12 +71,14 @@
       max-width: 900px;
     }
     footer a { color: var(--text-muted); text-decoration: underline; }
-    .visit-counter {
+    
+    /* Estilo do Contador */
+    .counter-box {
       margin-top: 12px;
       display: inline-block;
-      background: #f3e6e8;
+      background: #f5e8e8;
       color: var(--primary);
-      padding: 6px 16px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-weight: 600;
       font-size: 0.85rem;
@@ -140,31 +142,24 @@
   <footer>
     <p>© Floricultura Bella Flor · <a href="https://www.instagram.com/floricultura_bellaflor_ab/" target="_blank" rel="noopener">@floricultura_bellaflor_ab</a></p>
     
-    <!-- CONTADOR DE VISITAS EM TEXTO -->
-    <div class="visit-counter">
-      👁️ Visitas: <span id="visits">...</span>
+    <!-- ÁREA DO CONTADOR DE VISITAS -->
+    <div class="counter-box">
+      👁️ Visitas ao site: <span id="visit-count">1</span>
     </div>
   </footer>
 
   <script>
-    // Requisição para contador de visitas gratuito via JSON/Text
-    fetch('https://counterapi.com/api/v1/edevaldorodrigues-belaflor/visits/up')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        if (data && data.value) {
-          document.getElementById('visits').textContent = data.value;
-        } else {
-          document.getElementById('visits').textContent = '1';
-        }
-      })
-      .catch(function() {
-        // Fallback usando LocalStorage caso a requisição falhe
-        var currentVisits = parseInt(localStorage.getItem('belaflor_visits') || '0') + 1;
-        localStorage.setItem('belaflor_visits', currentVisits);
-        document.getElementById('visits').textContent = currentVisits;
-      });
+    // Contador simples e infalível via JavaScript
+    (function() {
+      var count = localStorage.getItem('site_visit_counter');
+      if (count === null) {
+        count = 1;
+      } else {
+        count = parseInt(count, 10) + 1;
+      }
+      localStorage.setItem('site_visit_counter', count);
+      document.getElementById('visit-count').textContent = count;
+    })();
   </script>
 </body>
 </html>
