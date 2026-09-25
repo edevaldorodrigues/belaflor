@@ -71,6 +71,7 @@
       max-width: 900px;
     }
     footer a { color: var(--text-muted); text-decoration: underline; }
+    .visit-badge { margin-top: 10px; display: inline-block; }
   </style>
 </head>
 <body>
@@ -102,19 +103,26 @@
   <footer>
     <p>© Floricultura Bella Flor · <a href="https://www.instagram.com/floricultura_bellaflor_ab/" target="_blank" rel="noopener">@floricultura_bellaflor_ab</a></p>
     
-    <!-- Contador de Visitas exibido aqui -->
-    <div id="visit-count" style="margin-top: 8px; font-weight: 500; opacity: 0.8;"></div>
+    <!-- Contador de Visitas exibido em texto -->
+    <div id="visit-count" style="margin-top: 8px; font-weight: 500; opacity: 0.8;">Carregando visitas...</div>
+
+    <!-- Opção alternativa por Imagem Badge (Caso o GoatCounter não esteja configurado) -->
+    <div class="visit-badge">
+      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fedevaldorodrigues.github.io%2Fbelaflor&count_bg=%239B2247&title_bg=%23736267&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false" alt="Contador de Visitas"/>
+    </div>
   </footer>
 
   <!-- Script do Contador (GoatCounter) -->
-  <script data-goatcounter="https://SEUCODIGO.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://belaflor.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script>
-    fetch('https://SEUCODIGO.goatcounter.com/counter/TOTAL.json')
+    fetch('https://belaflor.goatcounter.com/counter/TOTAL.json')
       .then(function(r) { return r.json(); })
       .then(function(d) {
         document.getElementById('visit-count').textContent = 'Visitas: ' + d.count;
       })
-      .catch(function(err) {});
+      .catch(function(err) {
+        document.getElementById('visit-count').style.display = 'none';
+      });
   </script>
 </body>
 </html>
